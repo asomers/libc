@@ -1373,6 +1373,10 @@ f! {
 }
 
 extern {
+    /* Actually type_ is a c enum */
+    pub fn dbopen(file: *const ::c_char, flags: ::c_int, mode: ::c_int,
+                  type_: ::c_int, openinfo: *const ::c_void) -> *mut ::DB;
+
     pub fn gettimeofday(tp: *mut ::timeval,
                         tz: *mut ::timezone) -> ::c_int;
     pub fn accept4(s: ::c_int, addr: *mut ::sockaddr,

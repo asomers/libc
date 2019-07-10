@@ -1157,6 +1157,10 @@ extern {
     pub fn clock_gettime(clk_id: ::clockid_t, tp: *mut ::timespec) -> ::c_int;
     pub fn clock_settime(clk_id: ::clockid_t, tp: *const ::timespec) -> ::c_int;
 
+    /* Actually type_ is a c enum */
+    pub fn dbopen(file: *const ::c_char, flags: ::c_int, mode: ::c_int,
+                  type_: ::DBTYPE, openinfo: *const ::c_void) -> *mut ::DB;
+
     pub fn extattr_delete_fd(fd: ::c_int,
                              attrnamespace: ::c_int,
                              attrname: *const ::c_char) -> ::c_int;

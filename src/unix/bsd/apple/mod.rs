@@ -3083,6 +3083,10 @@ f! {
 }
 
 extern {
+    /* Actually type_ is a c enum */
+    pub fn dbopen(file: *const ::c_char, flags: ::c_int, mode: ::c_int,
+                  type_: ::c_int, openinfo: *const ::c_void) -> *mut ::DB;
+
     pub fn setgrent();
     #[doc(hidden)]
     #[deprecated(since="0.2.49", note="Deprecated in MacOSX 10.5")]

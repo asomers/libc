@@ -1063,6 +1063,10 @@ f! {
 }
 
 extern {
+    /* Actually type_ is a c enum */
+    pub fn dbopen(file: *const ::c_char, flags: ::c_int, mode: ::mode_t,
+                  type_: ::c_int, openinfo: *const ::c_void) -> *mut ::DB;
+
     pub fn setgrent();
     pub fn mprotect(addr: *mut ::c_void, len: ::size_t, prot: ::c_int)
                     -> ::c_int;

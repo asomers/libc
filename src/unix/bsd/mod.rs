@@ -6,8 +6,29 @@ pub type socklen_t = u32;
 pub type sa_family_t = u8;
 pub type pthread_t = ::uintptr_t;
 pub type nfds_t = ::c_uint;
+pub type DBTYPE = ::c_int;
 
 s! {
+    pub struct DB {
+        pub type_: DBTYPE,
+        pub close: extern fn(db: *mut DB) -> ::c_int,
+        pub del: extern fn(db: *mut DB, key: *const DBT, flags: ::c_uint) ->
+            ::c_int,
+        pub get: extern fn(db: *mut DB, key: *const DBT, data: *mut DBT, flags:
+                           ::c_uint) -> ::c_int,
+        pub put: extern fn(db: *mut DB, key: *mut DBT, data: *const DBT, flags:
+                           ::c_uint) -> ::c_int,
+        pub seq: extern fn(db: *mut DB, key: *mut DBT, data: *mut DBT, flags:
+                           ::c_uint) -> ::c_int,
+        pub internal: *mut ::c_void,
+        pub fd: extern fn(db: *const DB)
+    }
+
+    pub struct DBT {
+        pub data: *mut ::c_void,
+        pub size: usize
+    }
+
     pub struct sockaddr {
         pub sa_len: u8,
         pub sa_family: sa_family_t,
@@ -223,6 +244,10 @@ cfg_if! {
         }
     }
 }
+
+pub const DB_BTREE: ::DBTYPE = 0;
+pub const DB_HASH: ::DBTYPE = 1;
+pub const DB_RECNO: ::DBTYPE = 2;
 
 pub const LC_ALL: ::c_int = 0;
 pub const LC_COLLATE: ::c_int = 1;

@@ -1488,6 +1488,10 @@ extern {
 }
 
 extern {
+    /* Actually type_ is a c enum */
+    pub fn dbopen(file: *const ::c_char, flags: ::c_int, mode: ::mode_t,
+                  type_: ::c_int, openinfo: *const ::c_void) -> *mut ::DB;
+
     pub fn chflags(path: *const ::c_char, flags: ::c_ulong) -> ::c_int;
     pub fn fchflags(fd: ::c_int, flags: ::c_ulong) -> ::c_int;
     pub fn lchflags(path: *const ::c_char, flags: ::c_ulong) -> ::c_int;
