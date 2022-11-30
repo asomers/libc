@@ -1889,6 +1889,8 @@ fn test_freebsd(target: &str) {
                 "iconv.h",
                 "ifaddrs.h",
                 "langinfo.h",
+                "libcasper.h",
+                "casper/cap_sysctl.h",  // must be after libcasper.h
                 "libgen.h",
                 "libutil.h",
                 "limits.h",
@@ -2230,9 +2232,10 @@ fn test_freebsd(target: &str) {
 
     cfg.skip_type(move |ty| {
         match ty {
-            // the struct "__kvm" is quite tricky to bind so since we only use a pointer to it
-            // for now, it doesn't matter too much...
+            // actually typedefs for opaque structures
             "kvm_t" => true,
+            "cap_channel_t" => true,
+            "cap_sysctl_limit_t" => true,
 
             _ => false,
         }

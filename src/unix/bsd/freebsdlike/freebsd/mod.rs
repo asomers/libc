@@ -46,6 +46,11 @@ pub type au_asid_t = ::pid_t;
 
 pub type cpusetid_t = ::c_int;
 
+// Actually a typedef to the opaque "struct cap_channel".
+pub type cap_channel_t = ::c_void;
+// Actually a typedef to the opaque "struct cap_sysctl_limit".
+pub type cap_sysctl_limit_t = ::c_void;
+
 #[cfg_attr(feature = "extra_traits", derive(Debug, Hash, PartialEq, Eq))]
 #[repr(u32)]
 pub enum devstat_support_flags {
@@ -4382,6 +4387,17 @@ extern "C" {
         uaddr: *mut ::c_void,
         uaddr2: *mut ::c_void,
     ) -> ::c_int;
+}
+
+#[link(name = "casper")]
+extern "C" {
+    pub fn cap_close(chan: *mut cap_channel_t);
+    pub fn cap_init() -> *mut cap_channel_t;
+    pub fn cap_service_open(chan: *const cap_channel_t, name: *const ::c_char) -> *mut cap_channel_t;
+    pub fn cap_sysctl_limit(chan: *mut cap_sysctl_limit_t) -> ::c_int;
+    pub fn cap_sysctl_limit_init(chan: *mut cap_channel_t) -> *mut cap_sysctl_limit_t;
+    pub fn cap_sysctl_limit_name(limit: *mut ::cap_sysctl_limit_t, name: *const ::c_char, flags: ::c_int) -> *mut cap_sysctl_limit_t;
+    pub fn cap_sysctlbyname(chan: *mut cap_channel_t, name: *const ::c_char, oldp: *mut ::c_void, oldlenp: *mut usize, newp: *const ::c_void, newlen: usize) -> ::c_int;
 }
 
 #[link(name = "memstat")]
