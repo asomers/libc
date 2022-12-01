@@ -4391,6 +4391,7 @@ extern "C" {
 
 #[link(name = "casper")]
 extern "C" {
+    pub fn cap_clone(chan: *const cap_channel_t) -> *mut cap_channel_t;
     pub fn cap_close(chan: *mut cap_channel_t);
     pub fn cap_init() -> *mut cap_channel_t;
     pub fn cap_service_open(chan: *const cap_channel_t, name: *const ::c_char) -> *mut cap_channel_t;
