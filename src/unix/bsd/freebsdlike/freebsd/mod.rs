@@ -1908,6 +1908,12 @@ pub const LIO_VECTORED: ::c_int = 4;
 pub const LIO_WRITEV: ::c_int = 5;
 pub const LIO_READV: ::c_int = 6;
 
+// casper/cap_sysctl.h
+pub const CAP_SYSCTL_READ: ::c_int = 0x01;
+pub const CAP_SYSCTL_WRITE: ::c_int = 0x02;
+pub const CAP_SYSCTL_RDWR: ::c_int = CAP_SYSCTL_READ | CAP_SYSCTL_WRITE;
+pub const CAP_SYSCTL_RECURSIVE: ::c_int = 0x04;
+
 // sys/devicestat.h
 pub const DEVSTAT_N_TRANS_FLAGS: ::c_int = 4;
 pub const DEVSTAT_NAME_LEN: ::c_int = 16;
@@ -4395,6 +4401,10 @@ extern "C" {
     pub fn cap_close(chan: *mut cap_channel_t);
     pub fn cap_init() -> *mut cap_channel_t;
     pub fn cap_service_open(chan: *const cap_channel_t, name: *const ::c_char) -> *mut cap_channel_t;
+}
+
+#[link(name = "cap_sysctl")]
+extern "C" {
     pub fn cap_sysctl_limit(chan: *mut cap_sysctl_limit_t) -> ::c_int;
     pub fn cap_sysctl_limit_init(chan: *mut cap_channel_t) -> *mut cap_sysctl_limit_t;
     pub fn cap_sysctl_limit_name(limit: *mut ::cap_sysctl_limit_t, name: *const ::c_char, flags: ::c_int) -> *mut cap_sysctl_limit_t;
