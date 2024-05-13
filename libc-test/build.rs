@@ -1955,6 +1955,9 @@ fn test_android(target: &str) {
             ("Elf32_Phdr", "p_type") => true,
             ("Elf64_Phdr", "p_type") => true,
 
+            // _sigev_un is an anonymous union
+            ("sigevent", "_sigev_un") => true,
+
             // this is actually a union on linux, so we can't represent it well and
             // just insert some padding.
             ("siginfo_t", "_pad") => true,
