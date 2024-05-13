@@ -2844,6 +2844,8 @@ fn test_emscripten(target: &str) {
     });
 
     cfg.skip_field(move |struct_, field| {
+        // _sigev_un is an anonymous union
+        (struct_ == "sigevent" && field == "_sigev_un") ||
         // this is actually a union on linux, so we can't represent it well and
         // just insert some padding.
         // FIXME: is this necessary?
