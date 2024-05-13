@@ -2752,6 +2752,9 @@ fn test_emscripten(target: &str) {
     });
 
     cfg.skip_struct(move |ty| {
+        if ty.starts_with("__c_anonymous_") {
+            return true;
+        }
         match ty {
             // This is actually a union, not a struct
             // FIXME: is this necessary?
@@ -2856,8 +2859,6 @@ fn test_emscripten(target: &str) {
         // musl seems to define this as an *anonymous* bitfield
         // FIXME: is this necessary?
         (struct_ == "statvfs" && field == "__f_unused") ||
-        // sigev_notify_thread_id is actually part of a sigev_un union
-        (struct_ == "sigevent" && field == "sigev_notify_thread_id") ||
         // signalfd had SIGSYS fields added in Linux 4.18, but no libc release has them yet.
         (struct_ == "signalfd_siginfo" && (field == "ssi_addr_lsb" ||
                                            field == "_pad2" ||
