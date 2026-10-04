@@ -2202,7 +2202,8 @@ pub const NOTE_EXIT: u32 = 0x80000000;
 pub const NOTE_FORK: u32 = 0x40000000;
 pub const NOTE_EXEC: u32 = 0x20000000;
 pub const NOTE_PDATAMASK: u32 = 0x000fffff;
-#[deprecated(since = "1.0.0", note = "Note stable across OS versions")]
+#[deprecated(since = "1.0.0", note = "Not stable across OS versions")]
+#[doc(hidden)]
 pub const NOTE_PCTRLMASK: u32 = 0xf0000000;
 pub const NOTE_TRACK: u32 = 0x00000001;
 pub const NOTE_TRACKERR: u32 = 0x00000002;
